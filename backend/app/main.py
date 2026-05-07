@@ -18,6 +18,9 @@ from app.models.nutrient_tag_mapping import NutrientTagMapping
 from app.models.unit import Unit
 from app.models.nutrient_relationship import NutrientRelationship
 
+from fastapi.middleware.cors import CORSMiddleware
+app = FastAPI()
+
 
 app = FastAPI()
 
@@ -37,6 +40,16 @@ app.include_router(
     calculations_router,
     prefix="/calculations",
     tags=["Calculations"]
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 @app.get("/")
